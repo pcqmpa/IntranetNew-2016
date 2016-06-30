@@ -1,0 +1,309 @@
+﻿
+
+@{
+
+    
+    ViewBag.Title = "Pedido";
+
+    var logAsesora = (Session["IdGrupo"] == null) ? 0 : Convert.ToInt16(Session["IdGrupo"]);
+
+    var xmenu = (logAsesora == 16) ? "MenuAsesora" : "Index";
+
+}
+
+@section prueba
+    {
+        <ul class="display-inline v-align-m cont-linksgeneral hover-fx-02 pushy pushy-left">
+            <li><a href="pedidos-asesoras.html" class="active"><span class="color-02" data-hover="Pedidos">Pedidos</span></a></li>
+            <li><a href="../Home/@xmenu"><span class="color-02" data-hover="Menu">Menu</span></a></li>
+            <li><a href="http://www.dolcecatalogo.com" target="_blank"><span class="color-02" data-hover="Web">Web</span></a></li>
+        </ul>
+    }
+
+@Html.Hidden("urlProducto",Url.Action("ValidarCodigo", "Asesoras"))
+@Html.Hidden("urlPremios",Url.Action("IngresoPremio","Asesoras") )
+
+@Html.Hidden("curFlete", (object)ViewBag.Flete)
+@Html.Hidden("puntos",(object)ViewBag.Puntos)
+
+@Html.Hidden("direccion",(object)ViewBag.direccion)
+@Html.Hidden("barrio",(object)ViewBag.barrio)
+@Html.Hidden("poblacion",(object)ViewBag.poblacion)
+
+
+<main class="max-w-02">
+
+    <!-- MENU SECCIONES -->
+    <nav class="pushy_2 pushy-left-02">
+        <div class="cont-nav-links">
+            <ul class="stick uppercase">
+
+                <li>
+                    <a href="#" class="btn-menu-nav active">
+                        <div class="icon-section">
+                            <span class="box-icon-01 icon-o"></span>
+                            <span class="box-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Digitar pedido</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="list-icon-01 icon-o"></span>
+                            <span class="list-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Listado de pedidos</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="card-icon-01 icon-o"></span>
+                            <span class="card-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Cuenta corriente</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="movimiento-puntos.html" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="points-icon-01 icon-o"></span>
+                            <span class="points-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Movimientos de puntos</h2>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="site-overlay-02"></div>
+
+    <!-- END MENU SECCIONES -->
+
+    <div class="cont-panel-content">
+
+        <div class="menu-secciones">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- TITULO SECCION -->
+        <div class="header-int-01 margin-tb-30 font-size-null tx-center_14">
+            <ul class="nav-int-01 display-inline">
+                <li>
+                    <h1 class="color-pink-01"><a href="pedidos-asesoras.html">Pedidos</a></h1>
+                </li>
+                <li>
+                    <h2>Digitar pedido</h2>
+                </li>
+
+            </ul>
+        </div>
+        <!-- END TITULO SECCION -->
+
+        <hr class="margin-tb-25">
+
+        <ul class="cont-tabs-steps-01 display-inline tx-center_14">
+            <li class="active">01 <span>pedido</span></li>
+            <li>02 <span>Redime tus puntos</span></li>
+            <li>03 <span>Dirección</span></li>
+            <li>04 <span>Confirmación</span></li>
+        </ul>
+
+        <div>
+
+            <!-- TABLA -->
+            <div class="font-size-null margin-tb-30 cong-tables table-view-06">
+
+                <div class="contg-data-table">
+
+                    <!-- FILA DATOS TABLA -->
+                    <ul class="width-100 display-inline row-cont-table tx-center uppercase">
+                        <li class="width-15">
+                            <h3 class="color-pink-01">Datos generales</h3>
+                        </li>
+                        <li class="width-10"><b>Número del pedido<br><span class="color-pink-01">1266731</span></b></li>
+                        <li class="width-10"><b>Campaña<br><span class="color-pink-01">@ViewBag.campana</span></b></li>
+                        <li class="width-15">
+                            <h3 class="color-pink-01">Historia del crédito</h3>
+                        </li>
+                        <li class="width-10"><b>Cupo disponible<br><span class="color-pink-01">@string.Format("{0:c0}",ViewBag.Cupo)</span></b></li>
+                        <li class="width-10"><b>Puntos acomulados<br><span class="color-pink-01">@string.Format("{0:n0}",ViewBag.Puntos)</span></b></li>
+                        <li class="width-10"></li>
+                    </ul>
+                    <!-- END FILA DATOS TABLA -->
+                    <!-- FILA DATOS TABLA -->
+                    <ul class="width-100 display-inline row-cont-table tx-center uppercase">
+                        <li class="width-15">
+                            <h3 class="color-pink-01">Items</h3>
+                        </li>
+                        <li class="width-10"><b>Cantidad de items<br><span class="color-pink-01" id="txt-total-items">0</span></b></li>
+                        <li class="width-10"><b>Cantidad de Unidades<br><span class="color-pink-01" id="txt-total-unidades">0</span></b></li>
+                        <li class="width-15">
+                            <h3 class="color-pink-01">Cartera pendiente</h3>
+                        </li>
+                        <li class="width-10"><b>Saldo en mora<br><span class="color-pink-01">@string.Format("{0:c0}", ViewBag.Cartera)</span></b></li>
+                        <li class="width-10"><b>Numero de campañas<br><span class="color-pink-01">@ViewBag.campanas</span></b></li>
+                        <li class="width-10"><b>fecha del pedido<br><span class="color-pink-01">@DateTime.Now.ToShortDateString()</span></b></li>
+                    </ul>
+                    <!-- END FILA DATOS TABLA -->
+
+
+                </div>
+
+            </div>
+            <!-- END TABLA -->
+
+            <hr class="margin-tb-20">
+
+            <div class="header-table-01 bgcolor-pink arrow_box-bottom-01 tx-center_11 tx-right font-size-null">
+                <h3 class="width-50 width_3-40 width_11-100 v-align-m tx-left tx-center_11">Pedido en línea</h3>
+                <div class="width-50 width_3-60 width_11-100 v-align-m">
+
+
+                    @*<form class="width-50 width_3-60 width_11-100 v-align-m">*@
+                <div class="width-50 width_11-100 v-align-m ">
+                        <ul class="margin-t-li-01">
+                            <li class="width-100 width_11-60"><input id="txt-codigo" class="input-02" placeholder="código" maxlength="7"></li>
+                            <li class="width-100 width_11-40"><input type="number" id="txt-cantidad" class="input-02" placeholder="Cantidad" min="1" max="1"></li>
+                        </ul>
+                    </div>
+                    <div class="width_11-100 v-align-m tx-center">
+                        <button id="btn-addfila" class="btn-style-01" data-name-btn="Añadir pedido"><span>Añadir pedido</span></button>
+                    </div>
+                    @*</form>*@
+                </div>
+            </div>
+
+            <!-- TABLA -->
+            <div class="font-size-null margin-tb-20 cong-tables with-stick-id table-view-14">
+
+                <!-- ID COLUMNAS -->
+                <ul class="width-100 display-inline id-columns-tablet tx-center uppercase stick-02">
+                    <li class="width-10">Código</li>
+                    <li class="width-20">Descripción</li>
+                    <li class="width-10">Cantidad</li>
+                    <li class="width-10">v.alor Unitario cliente</li>
+                    <li class="width-10">v.alor Unitario Catálogo</li>
+                    <li class="width-10">v.alor total cliente</li>
+                    <li class="width-10">v.alor total Catálogo</li>
+                    <li class="width-10">Eliminar</li>
+                </ul>
+                <!-- END ID COLUMNAS -->
+
+                <div id="detalle-pedido" class="contg-data-table">
+                    <!-- FILA DATOS TABLA -->
+                </div>
+            </div>
+
+            <div class="footer-table-01 tx-right uppercase table tx-center_14">
+                <div class="width-50 width_14-100 v-align-t tx-right tx-center_14 margin-tb_14-10">
+                    <h4 class="display-inline_14 margin-lr-01">Subtotal: <span class="color-pink-01" id="txt-subtotal">0</span></h4>
+                    <h4 class="display-inline_14 margin-lr-01">Flete: <span class="color-pink-01" id="txt-flete">@string.Format("{0:c0}", ViewBag.Flete)</span></h4>
+                </div>
+                <div class="display-inline tx-left">
+                    <h3><span class="subtitle">Cliente</span>Total: <span class="color-pink-01" id="txt-total-cliente">0</span></h3>
+                    <h3><span class="subtitle">Catálogo</span>Total: <span class="color-pink-01" id="txt-total-catalogo">0</span></h3>
+                </div>
+            </div>
+
+            <ul class="display-inline margin-tb-20 tx-right tx-center_14 width-100 margin-lr-li-01 ">
+                <li><button class="btn-style-01 btn-style-04" data-name-btn="Anular pedido"><span>Anular pedido</span></button></li>
+                <li><button id="btn-siguiente-premios" class="btn-style-01" data-name-btn="Siguiente paso"><span>Siguiente paso</span></button></li>
+            </ul>
+            <!-- END TABLA -->
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<div class="modal-premios">
+
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <div class="div-header-modal-premios">
+            <p><span class="icon-question"></span> Notificación</p>
+        </div>
+        <div class="div-body-modal-premio">
+            <div class="modal-premio-body">
+                <img src="~/images-dolce/_Dolce Puntos 2016.png" width="350" height="350" />
+            </div>
+            <div class="modal-botones-premios">
+
+                <p>!Selecciona un Opcion¡</p>
+                
+                <div>
+                    <a href="~/Asesoras/ValidarDireccion">Seguir Acumulando</a>
+                    <a href="~/Asesoras/IngresoPremio">Redimir Puntos</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="div-footer-modal-premio">
+            <p>Conoce nuestro catalogo para redimir tus puntos <a href="#">Aqui</a></p>
+        </div>
+
+    </div>
+
+</div>
+
+
+@section scripts
+    {
+
+    
+        <script src="~/js-dolce/fixto.js"></script>
+    
+        
+        <script type="text/javascript">
+            $(function () {
+
+                var items = parseInt(JSON.parse(sessionStorage.getItem("items")));
+
+                if (items != undefined) {
+
+                    if (items > 0) {
+
+                        CargarDetalle();
+                    }
+                }
+
+             /* Fija Menu lateral */
+                $('.stick').fixTo('.cont-nav-links', {
+                    useNativeSticky: false,
+                    top: 130,
+                });
+                /* Fija Menu lateral */
+                /* Fija ID COLUMNAS */
+                $('.stick-02').fixTo('.with-stick-id', {
+                    useNativeSticky: false,
+                    top: 116,
+                });
+                /* END Fija ID COLUMNAS */
+
+
+
+           });
+
+            function CargarItems() {
+
+            }
+
+           
+        </script>
+        
+            
+
+
+        <script src="~/Scripts/Asesoras.js"></script>
+    }

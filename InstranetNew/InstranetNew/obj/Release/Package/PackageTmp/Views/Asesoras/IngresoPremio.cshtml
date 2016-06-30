@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Pedido Asesora";
+
+    var logAsesora = (Session["IdGrupo"] == null) ? 0 : Convert.ToInt16(Session["IdGrupo"]);
+
+    var xmenu = (logAsesora == 16) ? "MenuAsesora" : "Index";
+}
+
+
+@section prueba
+    {
+    <ul class="display-inline v-align-m cont-linksgeneral hover-fx-02 pushy pushy-left">
+        <li><a href="pedidos-asesoras.html" class="active"><span class="color-02" data-hover="Pedidos">Pedidos</span></a></li>
+        <li><a href="../Home/@xmenu"><span class="color-02" data-hover="Menu">Menu</span></a></li>
+        <li><a href="http://www.dolcecatalogo.com" target="_blank"><span class="color-02" data-hover="Web">Web</span></a></li>
+    </ul>
+}
+
+
+@Html.Hidden("urlPremio",Url.Action("ValidarPremio","Asesoras"))
+@Html.Hidden("urlDireccion",Url.Action("ValidarDireccion","Asesoras"))
+@Html.Hidden("urlPedido_Ini",Url.Action("Index","Asesoras"))
+
+
+<main class="max-w-02">
+
+    <!-- MENU SECCIONES -->
+    <nav class="pushy_2 pushy-left-02">
+        <div class="cont-nav-links">
+            <ul class="stick uppercase">
+
+                <li>
+                    <a href="#" class="btn-menu-nav active">
+                        <div class="icon-section">
+                            <span class="box-icon-01 icon-o"></span>
+                            <span class="box-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Digitar pedido</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="list-icon-01 icon-o"></span>
+                            <span class="list-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Listado de pedidos</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="card-icon-01 icon-o"></span>
+                            <span class="card-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Cuenta corriente</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="movimiento-puntos.html" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="points-icon-01 icon-o"></span>
+                            <span class="points-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Movimientos de puntos</h2>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="site-overlay-02"></div>
+
+    <!-- END MENU SECCIONES -->
+
+    <div class="cont-panel-content">
+
+        <div class="menu-secciones">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- TITULO SECCION -->
+        <div class="header-int-01 margin-tb-30 font-size-null tx-center_14">
+            <ul class="nav-int-01 display-inline">
+                <li>
+                    <h1 class="color-pink-01"><a href="pedidos-asesoras.html">Pedidos</a></h1>
+                </li>
+                <li>
+                    <h2>Digitar pedido</h2>
+                </li>
+
+            </ul>
+        </div>
+        <!-- END TITULO SECCION -->
+
+        <hr class="margin-tb-25">
+
+        <ul class="cont-tabs-steps-01 display-inline tx-center_14">
+            <li>01 <span>pedido</span></li>
+            <li class="active">02 <span>Redime tus puntos</span></li>
+            <li>03 <span>Dirección</span></li>
+            <li>04 <span>Confirmación</span></li>
+        </ul>
+
+        <div>
+
+            <div class="header-int-02 tx-center_10  uppercase margin-tb-20">
+                <h2>Mi pedido</h2>
+                <p>tienes <span class="color-pink-01" id="txt-items-premios">0 items</span> con un total de <span class="color-pink-01" id="txt-total-pedido-premio">$0</span></p>
+            </div>
+
+            <!-- Puntos acomulados -->
+            <div class="contg-number-points tx-center uppercase margin-tb-30">
+                <h2>@Session["NombreUsuario"].ToString()</h2>
+                <h4>Tienes</h4>
+                <h3 class="count color-pink-01" id="txt-puntos-acumulados">0</h3>
+                <p>Puntos acomulados</p>
+            </div>
+            <!-- END Puntos acomulados -->
+
+
+            <hr class="margin-tb-20">
+
+            <div class="header-table-01 bgcolor-pink arrow_box-bottom-01 tx-center_11 tx-right font-size-null">
+                <h3 class="width-50 width_3-40 width_11-100 v-align-m tx-left tx-center_11">Ingresa tu premio</h3>
+                <div class="width-50 width_3-60 width_11-100 v-align-m">
+                    <div class="width-50 width_11-100 v-align-m ">
+                        <ul class="margin-t-li-01">
+                            <li class="width-100 width_11-60"><input id="txt-codigo-premio" class="input-02" placeholder="código del premio" maxlength="7"></li>
+                            <li class="width-100 width_11-40"><input id="txt-cantidad-premio" type="number" class="input-02" placeholder="Cantidad" min="1"></li>
+                        </ul>
+                    </div>
+                    <div class="width_11-100 v-align-m tx-center">
+                        <button id="btn-add-fila-premio" class="btn-style-01" data-name-btn="Añadir pedido"><span>Añadir al pedido</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA -->
+            <div class="font-size-null margin-tb-20 cong-tables with-stick-id table-view-14">
+
+                <!-- ID COLUMNAS -->
+                <ul class="width-100 display-inline id-columns-tablet tx-center uppercase stick-02">
+                    <li class="width-10">Código</li>
+                    <li class="width-30">Descripción</li>
+                    <li class="width-10">Puntos por premio</li>
+                    <li class="width-20">Cantidad</li>
+                    <li class="width-20">Puntos totales</li>
+                    <li class="width-10">Eliminar</li>
+                </ul>
+                <!-- END ID COLUMNAS -->
+
+                <div id="detalle-premios" class="contg-data-table">
+
+                    <!-- FILA DATOS TABLA -->
+                    @*<ul class="width-100 display-inline row-cont-table tx-center uppercase">
+                        <li class="width-10" data-id-colum="Código">145023</li>
+                        <li class="width-30 tx-left" data-id-colum="Descripción">MAXI BLUSA</li>
+                        <li class="width-10" data-id-colum="Puntos por premio">3</li>
+                        <li class="width-20" data-id-colum="Cantidad">$72.011</li>
+                        <li class="width-20" data-id-colum="Puntos totales">$72.011</li>
+                        <li class="width-10" data-id-colum="Eliminar"><button class="btn-x"></button></li>
+                    </ul>*@
+
+                </div>
+            </div>
+
+            <div class="footer-table-01 tx-right uppercase table tx-center_14">
+                <div class="display-inline tx-left">
+                    <h3>Total de puntos utilizados: <span class="color-pink-01" id="txt-total-puntos-redimidos">0</span></h3>
+                </div>
+            </div>
+
+            <ul class="display-inline margin-tb-20 tx-right tx-center_14 width-100 margin-lr-li-01">
+                <li><button class="btn-style-01 btn-style-04" data-name-btn="Anular pedido" id="btn-anular-pedido" ><span>Anular pedido</span></button></li>
+                <li><button class="btn-style-01" data-name-btn="Volver al pedido" id="btn-regresar-pedido"><span>Volver al pedido</span></button></li>
+                <li><button class="btn-style-01" data-name-btn="Siguiente paso" id="btn-validar-direccion"><span>Siguiente paso</span></button></li>
+            </ul>
+            <!-- END TABLA -->
+
+        </div>
+
+    </div>
+
+</main>
+
+
+@section scripts
+    {
+
+        <script src="~/js-dolce/fixto.js"></script>
+        
+        <script type="text/javascript">
+            $(function () {
+
+                var xdato = sessionStorage.getItem("Items_premiso");
+
+                if (xdato != null) {
+                    var items = parseInt(JSON.parse(sessionStorage.getItem("Items_premiso")));
+
+                    if (items != undefined || items != NaN) {
+                        
+                        var puntos = sessionStorage.getItem("puntos");
+
+
+
+                        CargarDetalle(items);
+                    }
+                }
+
+             
+
+            });
+        </script>
+
+        <script src="~/Scripts/Asesora_Premios.js"></script>
+
+        
+
+
+        @*<script src="~/Scripts/Asesoras.js"></script>*@
+
+    }

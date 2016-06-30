@@ -1,0 +1,58 @@
+﻿@model InstranetNew.Models.seguridad
+@{
+    ViewBag.Title = "Loguin";
+    var xlistaCampañas = ViewData["listaCampañas"] as List<InstranetNew.Models.Campañas>;
+}
+
+@section prueba
+    {
+        <ul class="display-inline v-align-m cont-linksgeneral hover-fx-02 pushy pushy-left">
+        <li><a href="#" class="active"><span class="color-02" data-hover="login">Login</span></a></li>
+        <li><a href="registro.html"><span class="color-02" data-hover="Regístrate">Regístrate</span></a></li>
+        <li><a href="http://www.dolcecatalogo.com" target="_blank"><span class="color-02" data-hover="Web">Web</span></a></li>
+        </ul>
+    }
+
+<main class="max-w-02 tx-center">
+
+    @Html.ValidationSummary(true)
+
+    <form action="~/Seguridad/Index" method="post" class="bgcolor-pink boxinfo-style-02 margin-tb-30 display-inline box-loguin shadow-box-01">
+        <h3 class="margin-tb-20">Ingresa a tu Mundo Dolce!</h3>
+
+
+        @Html.ValidationMessageFor(x => x.StrUsuario)      
+        @Html.TextBoxFor( x =>x.StrUsuario,new { @class="tx-center margin-tb-10 uppercase", placeholder="Usuario"} )
+        @Html.ValidationMessageFor(x => x.StrPassword)
+        @Html.PasswordFor( x => x.StrPassword, new {@class= "tx-center margin-tb-10 uppercase",placeholder="Contraseña" })
+      
+        @Html.ValidationMessageFor(x => x.StrCampaña)
+        <select id="select-campana" class="input-03" name="StrCampaña">
+            
+            <option value="" selected disabled>Seleccione Una Campaña</option>
+
+            @if (xlistaCampañas != null)
+            {
+                foreach (var itme in xlistaCampañas)
+                {
+                    <option value="@itme.StrCampaña">@itme.StrCampaña</option>
+                }
+            }
+
+        </select>
+        
+
+        <button type="submit" id="btn-ingreso" class="btn-style-01 margin-tb-20 width-02_" data-name-btn="Ingresar"><span>Ingresar</span></button>
+        <div><a href="#" class="btn-style-03"><u>¿Olvidaste tu contraseña?</u></a></div>
+    </form>
+
+    <div class="calltoaction-asesorasdolce">
+        <section class="display-inline v-align-m">
+            <h4>¿Quieres ser una de nuestras <span class="color-pink-01">asesoras Dolce?</span></h4>
+            <h5>comienza a disfrutar de este maravilloso <span class="color-pink-01">mundo de moda y de oportunidades</span></h5>
+        </section>
+        <div class="display-inline  v-align-m cont-btn">
+            <a href="\Seguridad\Registro" class="btn-style-01 btn-style-01b width-100" data-name-btn="Registráte aquí"><span>Registráte aquí</span></a>
+        </div>
+    </div>
+</main>

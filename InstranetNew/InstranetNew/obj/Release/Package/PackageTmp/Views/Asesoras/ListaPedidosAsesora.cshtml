@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Pedidos por Asesora";
+    var logAsesora = (Session["IdGrupo"] == null) ? 0 : Convert.ToInt16(Session["IdGrupo"]);
+    var xmenu = (logAsesora == 16) ? "MenuAsesora" : "Index";
+
+    var xlista = ViewData["lista_pedidos"] as List<InstranetNew.Models.ListaPedidosAsesora>;
+
+    var xmensaje = ViewBag.mensaje == null ? string.Empty : ViewBag.mensaje;
+
+    var conteo = xlista == null ? 0 : xlista.Count();
+
+    int pageIndex = 0;
+
+}
+
+
+@section prueba
+    {
+    <ul class="display-inline v-align-m cont-linksgeneral hover-fx-02 pushy pushy-left">
+        <li><a href="pedidos-asesoras.html" class="active"><span class="color-02" data-hover="Pedidos">Pedidos</span></a></li>
+        <li><a href="../Home/@xmenu"><span class="color-02" data-hover="Menu">Menu</span></a></li>
+        <li><a href="http://www.dolcecatalogo.com" target="_blank"><span class="color-02" data-hover="Web">Web</span></a></li>
+    </ul>
+}
+
+@Html.Hidden("mensaje", (object)xmensaje);
+
+<main class="max-w-02">
+
+    <!-- MENU SECCIONES -->
+    <nav class="pushy_2 pushy-left-02">
+        <div class="cont-nav-links">
+            <ul class="stick uppercase">
+
+                <li>
+                    <a href="#" class="btn-menu-nav active">
+                        <div class="icon-section">
+                            <span class="box-icon-01 icon-o"></span>
+                            <span class="box-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Digitar pedido</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="list-icon-01 icon-o"></span>
+                            <span class="list-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Listado de pedidos</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="card-icon-01 icon-o"></span>
+                            <span class="card-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Cuenta corriente</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="movimiento-puntos.html" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="points-icon-01 icon-o"></span>
+                            <span class="points-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Movimientos de puntos</h2>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="site-overlay-02"></div>
+
+    <!-- END MENU SECCIONES -->
+
+    <div class="cont-panel-content">
+
+        <div class="menu-secciones">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- TITULO SECCION -->
+        <div class="header-int-01 margin-tb-30 font-size-null tx-center_14">
+            <ul class="nav-int-01 display-inline">
+                <li>
+                    <h1 class="color-pink-01">Listado de Pedidos</h1>
+                </li>
+                <li>
+                    <h2>Total de Pedidos @ViewBag.total_items</h2>
+                </li>
+
+            </ul>
+        </div>
+        <!-- END TITULO SECCION -->
+
+        <div>
+
+            <div class="width-calc-01" id="">
+
+                <form class="width-50 width_3-60 width_11-100 v-align-m" action="~/Asesoras/ListaPedidosAsesora" method="post">
+                    <div class="width-50 width_11-100 v-align-m ">
+                        <ul class="margin-t-li-01">
+                            <li><input type="text" placeholder="Campaña" name="xdato" /></li>
+                        </ul>
+
+                    </div>
+                    <div class="width_11-100 v-align-m tx-center">
+                        <button type="submit"  class="btn-style-01" data-name-btn="Buscar"><span>Buscar</span></button>
+                    </div>
+
+                </form>
+
+
+
+                <div class="font-size-null margin-tb-20 cong-tables with-stick-id table-view-14">
+
+                    <!-- ID COLUMNAS -->
+                    <ul class="width-100 display-inline id-columns-tablet tx-center uppercase stick-02">
+                        <li class="width-10">Pedido No</li>
+                        <li class="width-10">Campaña</li>
+                        <li class="width-15">Valor Catalogo</li>
+                        <li class="width-15">Valor Cliente</li>
+                        <li class="width-20">Fecha de Creacion</li>
+                        <li class="width-15">Estado</li>
+                        <li class="width-15">Acción</li>
+                    </ul>
+                    <!-- END ID COLUMNAS -->
+
+                    <div class="contg-data-table" id="lista-pedidos">
+
+                        <!-- FILA DATOS TABLA -->
+
+                        @if (xlista != null)
+                        {
+                            foreach (var item in xlista)
+                            {
+                                <ul class="width-100 display-inline row-cont-table tx-center uppercase">
+                                    <li class="width-10" data-id-colum="Pedido No">@item.NumPedido </li>
+                                    <li class="width-10" data-id-colum="Campaña">@item.StrCampaña</li>
+                                    <li class="width-15" data-id-colum="Valor Catalogo">@string.Format("{0:c0}", item.CurValorCatalogo) </li>
+                                    <li class="width-15" data-id-colum="Valor Cliente">@string.Format("{0:c0}", item.CurValorCliente) </li>
+                                    <li class="width-20" data-id-colum="Fecha de Creacion">@item.dtmFecha</li>
+                                    <li class="width-15" data-id-colum="Estado">@item.StrEstado</li>
+                                    <li class="width-15" data-id-colum="Acción"></li>
+                                </ul>
+                            }
+                        }
+
+
+                        <!-- END FILA DATOS TABLA -->
+                    </div>
+
+                </div>
+
+                <ul id="ul-paginacion-listaPedidos">
+                    <li>@Ajax.ActionLink("Primero", "ListaPedidosAsesora", new { id = 1 }, null) </li>
+                    <li>@Ajax.ActionLink("Anterior", "ListaPedidosAsesora", new { id = (ViewBag.paginaIndex - 1 <= 1) ? 1 : (ViewBag.paginaIndex - 1) }, null) </li>
+                    <li id="li-paginacion-text"><span>Pág. @ViewBag.paginaIndex de @ViewBag.paginas</span></li>
+                    <li>@Ajax.ActionLink("Siguiente", "ListaPedidosAsesora", new { id = ((ViewBag.paginaIndex + 1) >= ViewBag.paginas) ? ViewBag.paginas : (ViewBag.paginaIndex + 1) }, null) </li>
+                    <li>@Ajax.ActionLink("Ultimo", "ListaPedidosAsesora", new { id = ViewBag.paginas }, null) </li>
+                </ul>
+
+            </div>
+
+
+        </div>
+    </div>
+</main>
+
+@section scripts
+    {
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            var mensaje = $("#mensaje").val();
+
+            if (mensaje != "") {
+                MensajeInterno(mensaje, iconoMensaje.info, modulos.asesora);
+            }
+
+        });
+
+    </script>
+}

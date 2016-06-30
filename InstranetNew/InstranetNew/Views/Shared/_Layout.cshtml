@@ -1,0 +1,264 @@
+﻿@{ 
+    var usuario = ( Session["Usuario"].ToString() == "") ? string.Empty : Session["Usuario"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <title>@ViewBag.Title</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/images-dolce/favicons/favicon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="~/images-dolce/favicons/dq-57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="~/images-dolce/favicons/dq-60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="~/images-dolce/favicons/dq-72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/images-dolce/favicons/dq-76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="~/images-dolce/favicons/dq-114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="~/images-dolce/favicons/dq-120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="~/images-dolce/favicons/dq-144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="~/images-dolce/favicons/dq-152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images-dolce/favicons/dq-180.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="~/images-dolce/favicons/dq-96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images-dolce/favicons/dq-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images-dolce/favicons/dq-16.png" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="~/images-dolce/favicons/dq-57.png" />
+    <meta name="msapplication-square70x70logo" content="~/images-dolce/favicons/dq-70.png" />
+    <meta name="msapplication-square150x150logo" content="~/images-dolce/favicons/dq-150.png" />
+    <meta name="msapplication-square310x310logo" content="~/images-dolce/favicons/dq-310.png" />
+    <meta name="msapplication-wide310x150logo" content="~/images-dolce/favicons/dq-310-150.png" />
+
+    <link rel="stylesheet" type="text/css" href="~/css-dolce/dolce-styles.css">
+    <link href="~/Content/Dolce.css" rel="stylesheet" />
+    @RenderSection("css",required:false)
+    
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+
+        
+    @*<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+</head>
+
+
+<body>
+    
+    @Html.Hidden("urlError", Url.Action("ErrorNavegador", "Seguridad"));
+
+    <div class="dradient-gray-01"></div>
+
+    <header class="max-w-01">
+
+        <h5 class="uppercase">LÍnea Gratuita Nacional: 018000-129994  Envigado, Antioquia - Colombia </h5>
+
+        <div class="header-white">
+            <div class="display-inline v-align-m cont-logodolce">
+                <a href="index.html"><img src="~/images-dolce/logo-dolce.png" width="139" height="54" alt="" /></a>
+            </div>
+
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            @RenderSection("Prueba",required:false)
+            
+            <div class="site-overlay"></div>
+
+            <ul class="display-inline v-align-m col-r-01">
+                <li class="v-align-m">
+                    <h4 class="color-pink-01 padding-lr-01">MUNDO DOLCE ASESORAS</h4>
+                </li>
+
+                @if (usuario != "")
+                {
+                    <li class="v-align-m">
+                        <button class="btn-style-01" data-name-btn="Cerrar sesión"><span>Cerrar sesión</span></button>
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <div class="header-black tx-right ">
+
+            @if (usuario != "")
+            {
+                <ul class="display-inline loguser-info">
+                    <li><span>Usuario:</span> @Session["NombreUsuario"].ToString()</li>
+                    <li><span>Campaña:</span>@Session["Campana"].ToString()</li>
+                </ul>
+            }
+
+        </div>
+
+    </header>
+
+    
+         @RenderBody()
+  
+      
+
+    <div id="openMensaje" class="modal-mensaje">
+
+        <div>
+
+            <a href="#close" title="Close" class="close" >X</a>
+            <div class="div-header-modal-mensaje">
+                <p>Mensaje Interno</p>
+            </div>
+            <div class="div-body-modal-mensaje">
+                <div class="modal-mensaje-body">
+                    <p id="txt-titulo-mensaje-modal">Titulo</p>
+                    <p id="txt-mensaje-modal">El Pedido se Ingreso Correctamente</p>
+                </div>
+                <div class="modal-icono">
+                    <span id="icono-mensaje-modal"></span>
+                </div>
+            </div>
+            <div class="div-footer-modal-mensaje">
+                <div class="modal-button">
+                    <button class="btn-modal-aceptar">Aceptar <span class="icon-checkmark"></span></button>
+                    <button class="btn-modal-cancelar">Cancelar <span class="icon-cross"></span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <footer class="bgcolor-pink">
+        <div class="max-w-01 font-size-null">
+            <div class="row">
+                <ul class="width-100 display-inline">
+
+                    <li class="width-70 width_10-100 copyright v-align-m tx-center_10">
+                        <span class="display-inline v-align-m"><img src="~/images-dolce/logo-dolce-white.png" width="88" height="34" alt="" /></span> © 2016 Dolce Todo los los derechos reservados
+                    </li>
+
+                    <li class="tx-center width-30 width_10-100 v-align-m margin-t_10-01">
+                        <ul class="creditos tx-right tx-center_10 ">
+                            <li class="tx-center">
+                                Diseño
+                                <a href="http://www.josedavidsanchez.com" target="_blank"><img src="http://josedavidsanchez.com/creditos-clientes/iso-josedavidsanchez.svg" alt="" width="22" height="26"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="~/js-dolce/modernizr.js"></script>
+    <script src="~/js-dolce/general-scripts.js"></script>
+    <script type="text/javascript">
+
+        function supports_html5_storage() {
+            try {
+                return 'localStorage' in window && window['localStorage'] !== null;
+            } catch (e) {
+                return false;
+            }
+        }
+
+
+        $(function () {
+
+
+            if (!supports_html5_storage())
+            {
+
+                var url_error = $("#urlError").val();
+
+                window.location.href = url_error;
+            }
+
+
+            $(".close").on("click", function () {
+
+                $(".modal-mensaje").css('opacity', '0');
+                $(".modal-mensaje").css('pointer-events', '');
+
+                //$(".modal-premios").css('opacity', '0');
+                //$(".modal-premios").css('pointer-events', '');
+
+
+            });
+
+        });
+
+        var iconoMensaje =
+            {
+                error: "icon-cross",
+                ok: "icon-checkmark",
+                pregunta: "icon-question",
+                info: "icon-info",
+                precaucion: "icon-warning"
+            }
+
+        var modulos =
+            {
+                asesora: "Modulo de Asesoras",
+                Intranet:"Modulo de Intranet"
+            }
+
+        function MensajeInterno(mensaje,icono,modulo)
+        {
+            $(".modal-mensaje").css('opacity', '1');
+            $(".modal-mensaje").css('pointer-events', 'auto');
+
+            $("#txt-mensaje-modal").html(mensaje);
+            $("#txt-titulo-mensaje-modal").html(modulo);
+            $("#icono-mensaje-modal").attr('class', '');
+            $("#icono-mensaje-modal").addClass(icono);
+        }
+
+        function Formato_Moneda(valor) {
+            return "$" + formato_numero(valor, 0, ',', '.');
+
+        }
+
+        function formato_numero(numero, decimales, separador_decimal, separador_miles) { // v2007-08-06
+            numero = parseFloat(numero);
+            if (isNaN(numero)) {
+                return "";
+            }
+
+            if (decimales !== undefined) {
+                // Redondeamos
+                numero = numero.toFixed(decimales);
+            }
+
+            // Convertimos el punto en separador_decimal
+            numero = numero.toString().replace(".", separador_decimal !== undefined ? separador_decimal : ",");
+
+            if (separador_miles) {
+                // Añadimos los separadores de miles
+                var miles = new RegExp("(-?[0-9]+)([0-9]{3})");
+                while (miles.test(numero)) {
+                    numero = numero.replace(miles, "$1" + separador_miles + "$2");
+                }
+            }
+
+            return numero;
+        }
+
+
+
+    </script>
+    @RenderSection("scripts", required: false)
+
+   
+
+</body>
+</html>

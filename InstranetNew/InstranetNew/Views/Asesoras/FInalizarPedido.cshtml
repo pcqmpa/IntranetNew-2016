@@ -1,0 +1,274 @@
+﻿
+@{
+    ViewBag.Title = "FInalizar Pedido";
+    var logAsesora = (Session["IdGrupo"] == null) ? 0 : Convert.ToInt16(Session["IdGrupo"]);
+    var xmenu = (logAsesora == 16) ? "MenuAsesora" : "Index";
+}
+
+
+
+
+@section prueba
+    {
+    <ul class="display-inline v-align-m cont-linksgeneral hover-fx-02 pushy pushy-left">
+        <li><a href="pedidos-asesoras.html" class="active"><span class="color-02" data-hover="Pedidos">Pedidos</span></a></li>
+        <li><a href="../Home/@xmenu"><span class="color-02" data-hover="Menu">Menu</span></a></li>
+        <li><a href="http://www.dolcecatalogo.com" target="_blank"><span class="color-02" data-hover="Web">Web</span></a></li>
+    </ul>
+}
+
+
+@Html.Hidden("tope_puntos", (double)Session["Tope_Puntos"]);
+@Html.Hidden("urlAddPedido", Url.Action("AddPedidoAsesora", "Asesoras"));
+@Html.Hidden("urlListado", Url.Action("ListaPedidosAsesora", "Asesoras"));
+
+
+<main class="max-w-02">
+
+    <!-- MENU SECCIONES -->
+    <nav class="pushy_2 pushy-left-02">
+        <div class="cont-nav-links">
+            <ul class="stick uppercase">
+
+                <li>
+                    <a href="#" class="btn-menu-nav active">
+                        <div class="icon-section">
+                            <span class="box-icon-01 icon-o"></span>
+                            <span class="box-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Digitar pedido</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="list-icon-01 icon-o"></span>
+                            <span class="list-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Listado de pedidos</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="card-icon-01 icon-o"></span>
+                            <span class="card-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Cuenta corriente</h2>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="movimiento-puntos.html" class="btn-menu-nav">
+                        <div class="icon-section">
+                            <span class="points-icon-01 icon-o"></span>
+                            <span class="points-icon-02 icon-p"></span>
+                        </div>
+                        <h2>Movimientos de puntos</h2>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="site-overlay-02"></div>
+
+    <!-- END MENU SECCIONES -->
+
+    <div class="cont-panel-content">
+
+        <div class="menu-secciones">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- TITULO SECCION -->
+        <div class="header-int-01 margin-tb-30 font-size-null tx-center_14">
+            <ul class="nav-int-01 display-inline">
+                <li>
+                    <h1 class="color-pink-01"><a href="pedidos-asesoras.html">Pedidos</a></h1>
+                </li>
+                <li>
+                    <h2>Digitar pedido</h2>
+                </li>
+
+            </ul>
+        </div>
+        <!-- END TITULO SECCION -->
+
+        <hr class="margin-tb-25">
+
+        <ul class="cont-tabs-steps-01 display-inline tx-center_14">
+            <li>01 <span>pedido</span></li>
+            <li>02 <span>Redime tus puntos</span></li>
+            <li>03 <span>Dirección</span></li>
+            <li class="active">04 <span>Confirmación</span></li>
+        </ul>
+
+        <div>
+
+            <div class="width-01_ contg-resumen tx-center">
+                <div class="stick-03">
+                    <h3>total pedido<span class="color-pink-01">Valor Catálogo</span></h3>
+                    <h4 class="color-pink-01" id="txt-total-catalogo">$174.991</h4>
+                    <hr class="margin-tb-20">
+                    <h3>total pedido<span class="color-pink-01">Valor Cliente</span></h3>
+                    <h4 class="color-pink-01" id="txt-valor-total-cliente">$0</h4>
+
+                    <div class="bgcolor-pink margin-tb-20 boxinfo-style-01">
+                        <h3>Ganancia en este pedio</h3>
+                        <h4 id="txt-ganancia">$0</h4>
+                        <h3 class="margin-tb-10">Puntos acomulados en este pedio</h3>
+                        <h4 id="txt-puntos-acumulados-finalizar">0</h4>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="width-calc-01">
+
+                <h3 class="margin-tb-25">Listado del pedido</h3>
+
+                <!-- TABLA -->
+                <div class="font-size-null margin-tb-20 cong-tables with-stick-id table-view-14">
+
+                    <!-- ID COLUMNAS -->
+                    <ul class="width-100 display-inline id-columns-tablet tx-center uppercase stick-02">
+                        <li class="width-10">Código</li>
+                        <li class="width-20">Descripción</li>
+                        <li class="width-10">Cantidad</li>
+                        <li class="width-15">Valor unitario cliente</li>
+                        <li class="width-15">Valor unitario Catálogo</li>
+                        <li class="width-15">Valor total cliente</li>
+                        <li class="width-15">Valor total Catálogo</li>
+                    </ul>
+                    <!-- END ID COLUMNAS -->
+
+                    <div class="contg-data-table" id="detalle-pedido-confirmar">
+
+
+                        <!-- Detalle del pedido -->
+
+                    </div>
+                </div>
+                <div class="footer-table-01 tx-right uppercase table ">
+                    <div class="width-100 display-inline tx-right tx-center_14">
+                        <ul>
+                            <li>
+                                <h4>Total items: <span class="color-pink-01" id="txt-total-items-confirmar">0</span></h4>
+                            </li>
+                            <li>
+                                <span class="separator-01">/</span>
+                            </li>
+                            <li>
+                                <h4>Total unidades: <span class="color-pink-01" id="txt-total-unidades-confirmar">0</span></h4>
+                            </li>
+                        </ul>
+                        <h4>Total valor pedido: <span class="color-pink-01" id="txt-total-peido-confirmar">$0</span></h4>
+                    </div>
+                </div>
+
+                <!-- END TABLA -->
+
+                <h3 class="margin-tb-25">Listado del premios</h3>
+
+                <!-- TABLA -->
+
+                <div class="font-size-null margin-tb-20 cong-tables with-stick-id table-view-14">
+
+                    <!-- ID COLUMNAS -->
+                    <ul class="width-100 display-inline id-columns-tablet tx-center uppercase stick-02">
+                        <li class="width-15">Código</li>
+                        <li class="width-30">Descripción</li>
+                        <li class="width-15">Cantidad</li>
+                        <li class="width-20">Puntos requeridos</li>
+                        <li class="width-20">Puntos totales</li>
+
+                    </ul>
+                    <!-- END ID COLUMNAS -->
+
+                    <div class="contg-data-table" id="detalle-premios-confirmar">
+
+                        <!--Detalle de premios-->
+
+                    </div>
+                </div>
+
+                <div class="footer-table-01 tx-right uppercase table ">
+                    <div class=" width-100 display-inline tx-right tx-center_14">
+                        <ul>
+                            <li>
+                                <h4>Total items: <span class="color-pink-01" id="txt-total-items-premios-confirmar">0</span></h4>
+                            </li>
+                            <li>
+                                <span class="separator-01">/</span>
+                            </li>
+                            <li>
+                                <h4>Total unidades: <span class="color-pink-01" id="txt-total-unidades-premios-confirmar">0</span></h4>
+                            </li>
+                        </ul>
+                        <h4>Total puntos utilizados: <span class="color-pink-01" id="txt-puntos-utilizados-confirmar">0</span></h4>
+                    </div>
+                </div>
+
+
+                <!-- END TABLA -->
+
+                <h3 class="margin-tb-25">Dirección de envio</h3>
+
+                <div class="header-int-03 margin-tb-30 tx-center_14">
+                    <h2 class="color-pink-01" id="txt-direccion1-confirmar"></h2>
+                    <p id="txt-direccion2-confirmar"></p>
+                </div>
+
+                <hr>
+
+                <ul class="display-inline margin-tb-20 tx-right tx-center_14 width-100 margin-lr-li-01">
+                    <li><button class="btn-style-01 btn-style-04" data-name-btn="Volver al pedido"><span>Volver al pedido</span></button></li>
+                    <li><button class="btn-style-01" data-name-btn="Guardar Borrador" id="btn-guardar-borrador"><span>Guardar Borrador</span></button></li>
+                    <li><button class="btn-style-01" data-name-btn="Siguiente paso" id="btn-guardar-pedido"><span>Confirmar pedido</span></button></li>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+@section scripts
+    {
+
+    <script src="~/js-dolce/fixto.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.stick').fixTo('.cont-nav-links', {
+                useNativeSticky: false,
+                top: 130,
+            });
+
+            $('.stick-02').fixTo('.with-stick-id', {
+                useNativeSticky: false,
+                top: 116,
+            });
+
+            $('.stick-03').fixTo('.contg-resumen', {
+                useNativeSticky: false,
+                top: 130,
+            });
+
+        });
+
+    </script>
+
+    <script src="~/Scripts/FinalizarPedido.js"></script>
+}
